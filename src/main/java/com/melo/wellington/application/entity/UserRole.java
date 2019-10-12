@@ -16,7 +16,7 @@ public class UserRole {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="role_id")
+	@Column(name="user_role_id")
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
