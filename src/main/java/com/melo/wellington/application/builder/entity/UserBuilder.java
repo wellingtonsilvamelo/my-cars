@@ -2,7 +2,12 @@ package com.melo.wellington.application.builder.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import com.melo.wellington.application.dto.CarDTO;
+import com.melo.wellington.application.entity.Car;
 import com.melo.wellington.application.entity.User;
 
 public class UserBuilder {
@@ -17,6 +22,7 @@ public class UserBuilder {
 	private String phone;
 	private LocalDate createdAt;
 	private LocalDateTime lastLogin;
+	private List<Car> cars;
 	
 	public static UserBuilder create() {
 		return new UserBuilder();
@@ -71,6 +77,18 @@ public class UserBuilder {
 		this.lastLogin = lastLogin;
 		return this;
 	}
+	
+	public UserBuilder cars(List<CarDTO> cars) {
+		this.cars = cars.stream()
+				.map(c -> CarBuilder.create()
+						.licensePlate(c.getLicensePlate())
+						.model(c.getModel())
+						.user(UserBuilder.create().id(c.getUserId()).build())
+						.color(c.getColor())
+						.year(c.getYear())
+						.build()).collect(Collectors.toList());
+		return this;
+	}
 		
 	public User build() {
 		User user = new User();
@@ -84,6 +102,7 @@ public class UserBuilder {
 		user.setPhone(phone);
 		user.setCreatedAt(createdAt);
 		user.setLastLogin(lastLogin);
+		user.setCars(cars);
 		return user;
 	}
 

@@ -2,6 +2,7 @@ package com.melo.wellington.application.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.melo.wellington.application.builder.entity.CarBuilder;
 import com.melo.wellington.application.builder.entity.UserBuilder;
 import com.melo.wellington.application.entity.Car;
+import com.melo.wellington.application.entity.User;
 import com.melo.wellington.application.exception.ApiException;
 import com.melo.wellington.application.repository.CarRepository;
 
@@ -22,11 +24,16 @@ public class CarService {
 	@Autowired
 	private CarRepository carRepository;
 		
-	private List<Car> getAllCars(){
+	public List<Car> getAllCars(){
 		return carRepository.findAll();
 	}
 	
-	private Car saveCar(Car car){
+	public List<Car> getAllCarsByUser(User user){
+		List<Car> usersList = carRepository.findByUser(user);
+		return usersList;
+	}
+	
+	public Car saveCar(Car car){
 		
 		Optional<Car> carExists = carRepository.findFirstByLicensePlate(car.getLicensePlate());
 		
@@ -36,9 +43,17 @@ public class CarService {
 		
 		return carRepository.save(car);
 	}
+	
+	public List<Car> saveAllCar(List<Car> cars){		
+		List<Car> savedCars = cars.stream()
+				.map(c -> saveCar(c))
+				.collect(Collectors.toList());
+		
+		return savedCars;
+	}
 
 	
-	private Car getCar(Long id){
+	public Car getCar(Long id){
 		Optional<Car> result = carRepository.findById(id); 
 		if(result.isPresent()) {
 			return result.get();
@@ -47,12 +62,12 @@ public class CarService {
 	}
 
 	
-	private void removeCar(Long id){
+	public void removeCar(Long id){
 		carRepository.deleteById(id);
 	}
 
 	
-	private Car updateCar(Car car){
+	public Car updateCar(Car car){
 		
 		Optional<Car> exists = carRepository.findById(car.getId());
 		

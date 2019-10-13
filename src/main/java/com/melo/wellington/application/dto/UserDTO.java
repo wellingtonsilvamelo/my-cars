@@ -15,12 +15,10 @@ public class UserDTO {
 	private Long id;
 	
 	@NotEmpty(message="Missing fields!")
-	@Pattern(regexp = "{A-Za-z}*", message="Invalid fields!")
 	@Size(min=4, max=50, message="Invalid fields!")
 	private String firstName;
 	
 	@NotEmpty(message="Missing fields!")
-	@Pattern(regexp = "{A-Za-z}*", message="Invalid fields!")
 	@Size(min=4, max=50, message="Invalid fields!")
 	private String lastName;
 	
@@ -38,7 +36,6 @@ public class UserDTO {
 	
 	@NotEmpty(message="Missing fields!")
 	@Size(min=8, max=14, message="Invalid fields!")
-	@Pattern(regexp = "{A-Za-z0-9}*", message="Invalid fields!")
 	private String password;
 	
 	@NotEmpty(message="Missing fields!")

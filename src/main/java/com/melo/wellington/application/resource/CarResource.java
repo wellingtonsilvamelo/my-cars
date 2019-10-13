@@ -2,6 +2,8 @@ package com.melo.wellington.application.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,7 +33,7 @@ public interface CarResource {
 	
 	@ApiOperation(value = "Registry a new car to the user logged")
 	@PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<CarDTO> save(@RequestBody CarDTO carDTO);
+	ResponseEntity<CarDTO> save(@Valid @RequestBody CarDTO carDTO);
 	
 	@ApiOperation(value = "Get a car from user logged in by id")
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

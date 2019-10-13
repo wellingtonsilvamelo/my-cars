@@ -2,6 +2,8 @@ package com.melo.wellington.application.resource;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +32,7 @@ public interface UserResource {
 	
 	@ApiOperation(value = "Registry a news user system")
 	@PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<UserDTO> save(@RequestBody UserDTO userDTO);
+	ResponseEntity<?> save(@Valid @RequestBody UserDTO userDTO);
 	
 	@ApiOperation(value = "Get a specially user by id")
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

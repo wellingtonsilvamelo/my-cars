@@ -2,6 +2,7 @@ package com.melo.wellington.application.entity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 @Entity
@@ -46,6 +48,9 @@ public class User {
 	
 	@Column(name="user_last_login", length=12, nullable=true)
 	private LocalDateTime lastLogin;
+	
+	@Transient
+	private List<Car> cars;
 	
 	public Long getId() {
 		return id;
@@ -106,6 +111,12 @@ public class User {
 	}
 	public void setLastLogin(LocalDateTime lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+	public List<Car> getCars() {
+		return cars;
+	}
+	public void setCars(List<Car> cars) {
+		this.cars = cars;
 	}
 
 }

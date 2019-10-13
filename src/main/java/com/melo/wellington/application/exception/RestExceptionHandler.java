@@ -2,7 +2,6 @@ package com.melo.wellington.application.exception;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	private List<String> errors;
 	
 	@Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, 
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, 
     		HttpHeaders headers, HttpStatus status, WebRequest request) {
         logError(ex);
 
@@ -60,7 +59,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         logError(ex);
         
         ResponseError response = new ResponseError(HttpStatus.INTERNAL_SERVER_ERROR.value(), 
-        		message.getMessage("exception.general", null, Locale.getDefault()));
+        		/*message.getMessage("exception.general", null, Locale.getDefault())*/"A error happend!");
         return new ResponseEntity<>(response, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 	

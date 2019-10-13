@@ -9,23 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.melo.wellington.application.builder.entity.UserBuilder;
+import com.melo.wellington.application.entity.Car;
 import com.melo.wellington.application.entity.User;
 import com.melo.wellington.application.exception.ApiException;
 import com.melo.wellington.application.repository.UserRepository;
 
 @Service(value = "userService")
 @Transactional(rollbackOn=Exception.class)
-@SuppressWarnings("unused")
 public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private CarService carService;
 		
-	private List<User> getAllUsers(){
+	public List<User> getAllUsers(){
 		return userRepository.findAll();
 	}
 	
-	private User saveUser(User user){
+	public User saveUser(User user){
 		
 		Optional<User> userExists = getUserByLogin(user.getLogin());
 		
@@ -38,13 +41,19 @@ public class UserService {
 				throw new ApiException("Email already exists!");
 			}			
 			user =  userRepository.save(user);
+			
+			for(Car car : user.getCars()) {
+				car.setUser(user);
+			}
+			
+			user.setCars(carService.saveAllCar(user.getCars()));
 		}
 		
 		return user;
 	}
 
 	
-	private User getUser(Long id){
+	public User getUser(Long id){
 		Optional<User> result = userRepository.findById(id); 
 		if(result.isPresent()) {
 			return result.get();
@@ -52,7 +61,7 @@ public class UserService {
 		throw new ApiException("User not found");		
 	}
 	
-	private Optional<User> getUserByLogin(String login){
+	public Optional<User> getUserByLogin(String login){
 		Optional<User> result = userRepository.findByLogin(login); 
 		if(result.isPresent()) {
 			return result;
@@ -60,7 +69,7 @@ public class UserService {
 		return Optional.empty();		
 	}
 	
-	private Optional<User> getFirstUserByEmail(String email){
+	public Optional<User> getFirstUserByEmail(String email){
 		Optional<User> result = userRepository.findFirstByEmail(email); 
 		if(result.isPresent()) {
 			return result;
@@ -68,12 +77,12 @@ public class UserService {
 		return Optional.empty();		
 	}
 	
-	private void removeUser(Long id){
+	public void removeUser(Long id){
 		userRepository.deleteById(id);
 	}
 
 	
-	private User updateUser(User user){
+	public User updateUser(User user){
 		
 		Optional<User> exists = userRepository.findById(user.getId());
 		
