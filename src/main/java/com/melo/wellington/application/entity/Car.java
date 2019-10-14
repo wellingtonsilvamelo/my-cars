@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "tbg_car", uniqueConstraints={@UniqueConstraint(columnNames ={"car_lincense_plate"})})
 public class Car {
@@ -21,6 +24,7 @@ public class Car {
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
 	

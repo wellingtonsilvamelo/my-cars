@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.melo.wellington.application.dto.UserDTO;
 import com.melo.wellington.application.response.LoginResponse;
+import com.melo.wellington.application.validators.UserUpdateCheck;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,6 +46,6 @@ public interface UserResource {
 	
 	@ApiOperation(value = "Update a specially user by id")
 	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<UserDTO> updateUser(@PathVariable("id") Long userId);	
+	ResponseEntity<?> updateUser(@Validated({UserUpdateCheck.class}) @RequestBody UserDTO userDTO, @PathVariable("id") Long userId);	
 	
 }

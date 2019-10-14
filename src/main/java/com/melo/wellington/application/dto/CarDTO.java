@@ -18,7 +18,6 @@ public class CarDTO {
 	private int year;
 	
 	@NotEmpty(message="Missing fields!")
-	@Pattern(regexp = "{A-Za-z0-9}*", message="Invalid fields!")
 	@Size(min=7, max=10, message="Invalid fields!")
 	private String licensePlate;
 	
@@ -65,6 +64,44 @@ public class CarDTO {
 	}
 	public void setColor(String color) {
 		this.color = color;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((licensePlate == null) ? 0 : licensePlate.hashCode());
+		result = prime * result + ((model == null) ? 0 : model.hashCode());
+		result = prime * result + year;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CarDTO other = (CarDTO) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (licensePlate == null) {
+			if (other.licensePlate != null)
+				return false;
+		} else if (!licensePlate.equals(other.licensePlate))
+			return false;
+		if (model == null) {
+			if (other.model != null)
+				return false;
+		} else if (!model.equals(other.model))
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
 	}
 	
 }

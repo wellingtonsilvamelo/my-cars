@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.melo.wellington.application.dto.CarDTO;
@@ -29,7 +30,7 @@ public interface CarResource {
 	
 	@ApiOperation(value = "Get all the user logged's cars")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<List<CarDTO>> getAll();
+	ResponseEntity<List<CarDTO>> getAll(@RequestHeader("Authorization") String authorization);
 	
 	@ApiOperation(value = "Registry a new car to the user logged")
 	@PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -45,6 +46,6 @@ public interface CarResource {
 	
 	@ApiOperation(value = "Update a car from user logged in by id")
 	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<CarDTO> updateCar(@PathVariable("id") Long userId);	
+	ResponseEntity<CarDTO> updateCar(@Valid @RequestBody CarDTO carDTO, @PathVariable("id") Long carId);	
 
 }

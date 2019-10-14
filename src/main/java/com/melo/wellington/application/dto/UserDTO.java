@@ -10,6 +10,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.melo.wellington.application.validators.UserSaveCheck;
+import com.melo.wellington.application.validators.UserUpdateCheck;
+
 public class UserDTO {
 	
 	private Long id;
@@ -34,8 +37,8 @@ public class UserDTO {
 	@Size(min=4, max=20, message="Invalid fields!")
 	private String login;
 	
-	@NotEmpty(message="Missing fields!")
-	@Size(min=8, max=14, message="Invalid fields!")
+	@NotEmpty(message="Missing fields!", groups = {UserSaveCheck.class})
+	@Size(min=8, max=14, message="Invalid fields!", groups = {UserSaveCheck.class})
 	private String password;
 	
 	@NotEmpty(message="Missing fields!")

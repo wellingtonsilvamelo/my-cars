@@ -32,5 +32,5 @@ public interface LoginResource {
 	
 	@ApiOperation(value = "Get specially user informations.")
 	@GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<UserDTO> me();
+	ResponseEntity<UserDTO> me(@RequestHeader("Authorization") String authorization);
 }

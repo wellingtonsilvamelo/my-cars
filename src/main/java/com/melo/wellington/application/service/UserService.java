@@ -78,7 +78,15 @@ public class UserService {
 	}
 	
 	public void removeUser(Long id){
-		userRepository.deleteById(id);
+		
+		Optional<User> exists = userRepository.findById(id);
+		
+		if(exists.isPresent()) {
+			userRepository.deleteById(id);
+		}else {
+			throw new ApiException("User not found!");
+		}
+		
 	}
 
 	
@@ -87,7 +95,6 @@ public class UserService {
 		Optional<User> exists = userRepository.findById(user.getId());
 		
 		if(exists.isPresent()) {
-			User aux = exists.get();
 			
 			Optional<User> loginExists = getUserByLogin(user.getLogin());
 			
@@ -101,19 +108,21 @@ public class UserService {
 				throw new ApiException("Login already exists!");
 			}
 			
-			aux = UserBuilder.create()
-					.id(aux.getId())
+			user = UserBuilder.create()
+					.id(user.getId())
 					.firstName(user.getFirstName())
 					.lastName(user.getLastName())
 					.birthday(user.getBirthday())
-					.createdAt(user.getCreatedAt())
+					.createdAt(exists.get().getCreatedAt())
 					.email(user.getEmail())
-					.lastLogin(user.getLastLogin())
-					.login(user.getLogin())
+					.lastLogin(exists.get().getLastLogin())
 					.phone(user.getPhone())
+					.lastLogin(exists.get().getLastLogin())
+					.login(exists.get().getLogin())
+					.password(exists.get().getPassword())
 					.build();
 			
-			return userRepository.save(aux);
+			return userRepository.save(user);
 		}
 		
 		throw new ApiException("User not found!");

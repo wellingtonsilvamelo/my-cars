@@ -37,7 +37,7 @@ public class CarService {
 		
 		Optional<Car> carExists = carRepository.findFirstByLicensePlate(car.getLicensePlate());
 		
-		if(carExists.isPresent()) {
+		if(carExists.isPresent() && carExists.get().getId() != car.getId()) {
 			throw new ApiException("License plate already exists!");
 		}
 		
@@ -63,16 +63,24 @@ public class CarService {
 
 	
 	public void removeCar(Long id){
-		carRepository.deleteById(id);
+		Optional<Car> exists = carRepository.findById(id);
+		
+		if (exists.isPresent()) {
+			carRepository.deleteById(id);
+		}else {
+			throw new ApiException("Car not found!");			
+		}		
 	}
-
+	
+	public void removeAllCars(List<Car> cars){
+		cars.forEach(c -> removeCar(c.getId()));
+	}
 	
 	public Car updateCar(Car car){
 		
 		Optional<Car> exists = carRepository.findById(car.getId());
 		
 		if(exists.isPresent()) {
-			Car aux = exists.get();
 			
 			Optional<Car> licensePlateExists = carRepository.findFirstByLicensePlate(car.getLicensePlate());
 			
@@ -80,16 +88,16 @@ public class CarService {
 				throw new ApiException("License plate already exists!");
 			}
 			
-			aux = CarBuilder.create()
+			car = CarBuilder.create()
 					.color(car.getColor())
-					.id(aux.getId())
-					.licensePlate(car.getLicensePlate())
+					.id(exists.get().getId())
+					.licensePlate(exists.get().getLicensePlate())
 					.model(car.getModel())
 					.user(car.getUser())
 					.year(car.getYear())
 					.build();
 			
-			return carRepository.save(aux);
+			return carRepository.save(car);
 		}
 		
 		throw new ApiException("Car not found!");
