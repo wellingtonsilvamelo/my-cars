@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.melo.wellington.application.builder.entity.CarBuilder;
-import com.melo.wellington.application.builder.entity.UserBuilder;
 import com.melo.wellington.application.entity.Car;
 import com.melo.wellington.application.entity.User;
 import com.melo.wellington.application.exception.ApiException;
@@ -18,7 +17,6 @@ import com.melo.wellington.application.repository.CarRepository;
 
 @Service
 @Transactional(rollbackOn=Exception.class)
-@SuppressWarnings("unused")
 public class CarService {
 	
 	@Autowired
@@ -41,7 +39,9 @@ public class CarService {
 			throw new ApiException("License plate already exists!");
 		}
 		
-		return carRepository.save(car);
+		car = carRepository.save(car);
+		
+		return car;
 	}
 	
 	public List<Car> saveAllCar(List<Car> cars){		
@@ -56,7 +56,9 @@ public class CarService {
 	public Car getCar(Long id){
 		Optional<Car> result = carRepository.findById(id); 
 		if(result.isPresent()) {
-			return result.get();
+			Car car = result.get();
+			car.setQtdUtilizacao(car.getQtdUtilizacao()+1);
+			return car;
 		}
 		throw new ApiException("Car not found!");		
 	}

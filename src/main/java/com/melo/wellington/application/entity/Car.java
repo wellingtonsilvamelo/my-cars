@@ -40,6 +40,9 @@ public class Car {
 	@Column(name="car_color", length=30, nullable=false)
 	private String color;
 	
+	@Column(name="car_qtd_utilizacao", nullable=false, columnDefinition = "integer default 0")
+	private Integer qtdUtilizacao;
+	
 	public Long getId() {
 		return id;
 	}
@@ -75,6 +78,12 @@ public class Car {
 	}
 	public void setColor(String color) {
 		this.color = color;
+	}
+	public Integer getQtdUtilizacao() {
+		return qtdUtilizacao;
+	}
+	public void setQtdUtilizacao(Integer qtdUtilizacao) {
+		this.qtdUtilizacao = qtdUtilizacao;
 	}
 
 }

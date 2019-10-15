@@ -46,7 +46,9 @@ public class UserService {
 				car.setUser(user);
 			}
 			
-			user.setCars(carService.saveAllCar(user.getCars()));
+			if(!user.getCars().isEmpty()) {
+				user.setCars(carService.saveAllCar(user.getCars()));				
+			}
 		}
 		
 		return user;
