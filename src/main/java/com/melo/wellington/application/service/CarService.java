@@ -51,7 +51,6 @@ public class CarService {
 		
 		return savedCars;
 	}
-
 	
 	public Car getCar(Long id){
 		Optional<Car> result = carRepository.findById(id); 
@@ -62,7 +61,6 @@ public class CarService {
 		}
 		throw new ApiException("Car not found!");		
 	}
-
 	
 	public void removeCar(Long id){
 		Optional<Car> exists = carRepository.findById(id);

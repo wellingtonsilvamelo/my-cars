@@ -60,7 +60,7 @@ public class UserService {
 		if(result.isPresent()) {
 			return result.get();
 		}
-		throw new ApiException("User not found");		
+		throw new ApiException("User not found!");		
 	}
 	
 	public Optional<User> getUserByLogin(String login){
@@ -102,11 +102,11 @@ public class UserService {
 			
 			Optional<User> emailExists = getFirstUserByEmail(user.getEmail());
 			
-			if(emailExists.isPresent()) {
+			if(emailExists.isPresent() && emailExists.get().getId() != user.getId()) {
 				throw new ApiException("Email already exists!");
 			}
 			
-			if(loginExists.isPresent()) {
+			if(loginExists.isPresent() && loginExists.get().getId() != user.getId()) {
 				throw new ApiException("Login already exists!");
 			}
 			
