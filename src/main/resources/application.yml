@@ -37,7 +37,7 @@ security:
       access-token-validity-seconds: 1800
       authorized-grant-types: password,refresh_token
       client-id: tomwellApp
-      client-secret: $2a$10$zX8v86SyTpSivZWdCO9yqu9ccAK5nb5xs9Fa2xaj7F0Ecjn9jr0JC
+      client-secret: $2a$10$I5l00CRpar0EE1TnM2NSI.ORUDOmYEngcG5nXDr/wN2Q/tjYeEwNu
       resource-ids: resource_id
       scope: read,write
     resource: 

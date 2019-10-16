@@ -1,11 +1,14 @@
 package com.melo.wellington.application.resource;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,10 +30,11 @@ public interface LoginResource {
 
 	@ApiOperation(value = "Do user login in the system.")
 	@PostMapping(value = "/signin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<LoginResponse> signin(@RequestBody LoginRequest loginRequest, @RequestHeader("Authorization") String authorization,
+	ResponseEntity<LoginResponse> signin(@Valid @RequestBody LoginRequest loginRequest, @RequestHeader("Authorization") String authorization,
 			   HttpServletResponse  response) throws UnsupportedEncodingException;
 	
 	@ApiOperation(value = "Get specially user informations.")
 	@GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<UserDTO> me(@RequestHeader("Authorization") String authorization);
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<UserDTO> get(final Principal principal);
 }

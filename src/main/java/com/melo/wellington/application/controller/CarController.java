@@ -1,5 +1,7 @@
 package com.melo.wellington.application.controller;
 
+import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,16 +32,13 @@ public class CarController implements CarResource{
 	private UserService userService;
 
 	@Override
-	public ResponseEntity<List<CarDTO>> getAll(@RequestHeader("Authorization") String authorization) {
+	public ResponseEntity<List<CarDTO>> getAll(@RequestHeader("Authorization") String authorization, Principal principal) {
 		
-		//TODO - obter usuário da token;
-		User user = UserBuilder.create()
-				.id(1l)
-				.build();		
+		User user = userService.getUserByLogin(principal.getName()).get();		
 
 		List<Car> cars = carService.getAllCarsByUser(user);
 		
-		List<CarDTO> userDTOList = cars.stream()
+		List<CarDTO> carDTOList = cars.stream()
 				.map(car -> CarDTOBuilder.create()
 						.color(car.getColor())
 						.id(car.getId())
@@ -50,8 +49,11 @@ public class CarController implements CarResource{
 						.year(car.getYear())
 						.build())
 				.collect(Collectors.toList());
+		
+		carDTOList.sort(Comparator.comparingInt(CarDTO::getQtdUtilizacao).reversed()
+				.thenComparing(CarDTO::getModel));
 				
-		return ResponseEntity.ok(userDTOList);
+		return ResponseEntity.ok(carDTOList);
 	}
 
 	@Override
@@ -74,9 +76,9 @@ public class CarController implements CarResource{
 	}
 
 	@Override
-	public ResponseEntity<CarDTO> getCar(Long userId) {
+	public ResponseEntity<CarDTO> getCar(Long carId) {
 
-		Car car = carService.getCar(userId);
+		Car car = carService.getCar(carId);
 		
 		CarDTO carDTO = CarDTOBuilder.create()
 				.color(car.getColor())
@@ -92,8 +94,8 @@ public class CarController implements CarResource{
 	}
 
 	@Override
-	public ResponseEntity<?> deleteCar(Long userId) {
-		carService.removeCar(userId);
+	public ResponseEntity<?> deleteCar(Long carId) {
+		carService.removeCar(carId);
 		return ResponseEntity.ok().build();
 	}
 

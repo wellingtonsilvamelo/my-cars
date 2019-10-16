@@ -1,6 +1,7 @@
 package com.melo.wellington.application.controller;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.melo.wellington.application.builder.dto.UserDTOBuilder;
 import com.melo.wellington.application.builder.entity.UserBuilder;
+import com.melo.wellington.application.dto.CarDTO;
 import com.melo.wellington.application.dto.UserDTO;
 import com.melo.wellington.application.entity.Car;
 import com.melo.wellington.application.entity.User;
@@ -43,10 +45,15 @@ public class UserController implements UserResource{
 						.createdAt(u.getCreatedAt())
 						.email(u.getEmail())
 						.lastLogin(u.getLastLogin())
+						.cars(carService.getAllCarsByUser(u))
 						.login(u.getLogin())
 						.phone(u.getPhone())
 						.build())
 				.collect(Collectors.toList());
+		
+		userDTOList.sort(Comparator
+				.comparingInt(u -> ((UserDTO) u).getCars().stream().mapToInt(CarDTO::getQtdUtilizacao).sum()).reversed()
+				.thenComparing(u -> ((UserDTO) u).getLogin()));
 				
 		return ResponseEntity.ok(userDTOList);
 	}

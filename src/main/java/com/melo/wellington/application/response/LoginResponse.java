@@ -13,6 +13,12 @@ public class LoginResponse {
 	@JsonProperty("expires_in")
 	private Long expiresIn;
 
+	public LoginResponse(String accessToken, String tokenType, Long expiresIn) {
+		this.accessToken = accessToken;
+		this.tokenType = tokenType;
+		this.expiresIn = expiresIn;
+	}
+
 	public String getAccessToken() {
 		return accessToken;
 	}

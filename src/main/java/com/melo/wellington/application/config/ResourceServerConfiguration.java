@@ -36,15 +36,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/**")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/users/**").permitAll()                
+                .antMatchers("/api/users/**").permitAll()
+                .antMatchers("/api/signin").permitAll() 
                 .anyRequest()
-                .authenticated()
-                .antMatchers(HttpMethod.GET, "/**").access("#oauth2.hasScope('read')")
-                .antMatchers(HttpMethod.OPTIONS, "/**").access("#oauth2.hasScope('read')")
-                .antMatchers(HttpMethod.POST, "/**").access("#oauth2.hasScope('write')")
-                .antMatchers(HttpMethod.PUT, "/**").access("#oauth2.hasScope('write')")
-                .antMatchers(HttpMethod.PATCH, "/**").access("#oauth2.hasScope('write')")
-                .antMatchers(HttpMethod.DELETE, "/**").access("#oauth2.hasScope('write')");
+                .authenticated();
     }
 
 }

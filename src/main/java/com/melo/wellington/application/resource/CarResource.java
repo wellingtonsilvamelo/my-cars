@@ -1,5 +1,6 @@
 package com.melo.wellington.application.resource;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -30,7 +31,7 @@ public interface CarResource {
 	
 	@ApiOperation(value = "Get all the user logged's cars")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	ResponseEntity<List<CarDTO>> getAll(@RequestHeader("Authorization") String authorization);
+	ResponseEntity<List<CarDTO>> getAll(@RequestHeader("Authorization") String authorization, Principal principal);
 	
 	@ApiOperation(value = "Registry a new car to the user logged")
 	@PostMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

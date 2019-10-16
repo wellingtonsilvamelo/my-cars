@@ -3,6 +3,7 @@ package com.melo.wellington.application.builder.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,6 +91,9 @@ public class UserDTOBuilder {
 					.year(c.getYear())
 					.build()
 			).collect(Collectors.toList());
+		
+		carsDTOList.sort(Comparator.comparingInt(CarDTO::getQtdUtilizacao).reversed()
+				.thenComparing(CarDTO::getModel));
 		
 		this.cars = carsDTOList;
 		return this;
