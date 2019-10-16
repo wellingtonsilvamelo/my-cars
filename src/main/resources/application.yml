@@ -31,6 +31,18 @@ spring:
   jackson:
     default-property-inclusion: NON_NULL
 
+security:
+  oauth2:
+    client:
+      access-token-validity-seconds: 1800
+      authorized-grant-types: password,refresh_token
+      client-id: tomwellApp
+      client-secret: $2a$10$zX8v86SyTpSivZWdCO9yqu9ccAK5nb5xs9Fa2xaj7F0Ecjn9jr0JC
+      resource-ids: resource_id
+      scope: read,write
+    resource: 
+      filter-order: 3
+
 logging: 
   level: 
     org: 

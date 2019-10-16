@@ -29,6 +29,8 @@ public class CarDTO {
 	@Size(min=4, max=30, message="Invalid fields!")
 	private String color;
 	
+	private Integer qtdUtilizacao;
+	
 	public Long getId() {
 		return id;
 	}
@@ -102,6 +104,12 @@ public class CarDTO {
 		if (year != other.year)
 			return false;
 		return true;
+	}
+	public Integer getQtdUtilizacao() {
+		return qtdUtilizacao;
+	}
+	public void setQtdUtilizacao(Integer qtdUtilizacao) {
+		this.qtdUtilizacao = qtdUtilizacao;
 	}
 	
 }

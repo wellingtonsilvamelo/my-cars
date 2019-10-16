@@ -84,6 +84,7 @@ public class UserBuilder {
 						.licensePlate(c.getLicensePlate())
 						.model(c.getModel())
 						.user(UserBuilder.create().id(c.getUserId()).build())
+						.qtdUtilizacao(0)
 						.color(c.getColor())
 						.year(c.getYear())
 						.build()).collect(Collectors.toList());

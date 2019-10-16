@@ -45,6 +45,7 @@ public class CarController implements CarResource{
 						.id(car.getId())
 						.licensePlate(car.getLicensePlate())
 						.model(car.getModel())
+						.qtdUtilizacao(car.getQtdUtilizacao())
 						.userId(car.getUser().getId())
 						.year(car.getYear())
 						.build())
@@ -62,6 +63,7 @@ public class CarController implements CarResource{
 				.licensePlate(carDTO.getLicensePlate())
 				.model(carDTO.getModel())
 				.user(UserBuilder.create().id(carDTO.getUserId()).build())
+				.qtdUtilizacao(0)
 				.year(carDTO.getYear())				
 				.build();
 		
@@ -82,6 +84,7 @@ public class CarController implements CarResource{
 				.licensePlate(car.getLicensePlate())
 				.model(car.getModel())
 				.userId(car.getUser().getId())
+				.qtdUtilizacao(car.getQtdUtilizacao())
 				.year(car.getYear())
 				.build();
 
@@ -105,6 +108,7 @@ public class CarController implements CarResource{
 				.licensePlate(car.getLicensePlate())
 				.model(carDTO.getModel())
 				.user(UserBuilder.create().id(car.getUser().getId()).build())
+				.qtdUtilizacao(0)
 				.year(carDTO.getYear())				
 				.build());
 		
@@ -113,6 +117,7 @@ public class CarController implements CarResource{
 				.id(car.getId())
 				.model(car.getModel())
 				.userId(car.getUser().getId())
+				.qtdUtilizacao(0)
 				.year(car.getYear())
 				.build();
 		

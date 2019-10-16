@@ -85,6 +85,7 @@ public class UserDTOBuilder {
 					.userId(c.getUser().getId())
 					.licensePlate(c.getLicensePlate())
 					.model(c.getModel())
+					.qtdUtilizacao(c.getQtdUtilizacao())
 					.color(c.getColor())
 					.year(c.getYear())
 					.build()

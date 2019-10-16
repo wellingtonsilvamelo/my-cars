@@ -1,11 +1,16 @@
 package com.melo.wellington.application.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.melo.wellington.application.builder.entity.UserBuilder;
@@ -13,13 +18,17 @@ import com.melo.wellington.application.entity.Car;
 import com.melo.wellington.application.entity.User;
 import com.melo.wellington.application.exception.ApiException;
 import com.melo.wellington.application.repository.UserRepository;
+import com.melo.wellington.application.repository.UserRoleRepository;
 
 @Service(value = "userService")
 @Transactional(rollbackOn=Exception.class)
-public class UserService {
+public class UserService implements UserDetailsService{
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserRoleRepository userRoleRepository;
 	
 	@Autowired
 	private CarService carService;
@@ -128,6 +137,27 @@ public class UserService {
 		}
 		
 		throw new ApiException("User not found!");
+	}
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Optional<User> user = userRepository.findByLogin(username);		
+		if(!user.isPresent()){
+			throw new UsernameNotFoundException("Invalid username or password.");
+		}
+		return new org.springframework.security.core.userdetails.User(
+				user.get().getLogin(), user.get().getPassword(), 
+				getRoles(user.get().getId()));
+	}
+
+	private List<SimpleGrantedAuthority> getRoles(Long userId) {
+		List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
+		userRoleRepository.findByUserId(userId).stream()
+			.forEach(u -> {
+				grantedAuthorities.add(new SimpleGrantedAuthority(u.getRole().getDescription()));
+			});
+		
+		return grantedAuthorities;
 	}
 
 
