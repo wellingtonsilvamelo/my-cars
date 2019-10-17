@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService{
 			
 			UserRole userRole = new UserRole(user, new Role(RoleEnum.ROLE_USER.getCode()));
 			
-			userRoleRepository.save(userRole);
+			userRole = userRoleRepository.save(userRole);
 			
 			for(Car car : user.getCars()) {
 				car.setUser(user);

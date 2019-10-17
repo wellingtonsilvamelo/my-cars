@@ -39,9 +39,13 @@ import com.melo.wellington.application.builder.entity.CarBuilder;
 import com.melo.wellington.application.builder.entity.UserBuilder;
 import com.melo.wellington.application.dto.CarDTO;
 import com.melo.wellington.application.entity.Car;
+import com.melo.wellington.application.entity.Role;
 import com.melo.wellington.application.entity.User;
+import com.melo.wellington.application.entity.UserRole;
 import com.melo.wellington.application.exception.ApiException;
+import com.melo.wellington.application.model.RoleEnum;
 import com.melo.wellington.application.repository.UserRepository;
+import com.melo.wellington.application.repository.UserRoleRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -54,6 +58,9 @@ public class UserServiceTest {
 	private UserRepository userRepository;
 	
 	@Mock
+	private UserRoleRepository userRoleRepository;
+	
+	@Mock
 	private CarService carService;
 	
 	List<User> users;
@@ -63,6 +70,7 @@ public class UserServiceTest {
 	User safeUser;
 	Car carToSave;
 	Car safeCar;
+	UserRole userRole;
 	
 	LocalDate DATA_CRIACAO = LocalDate.of(2019,10,14);
 	LocalDateTime LAST_UPDATE = LocalDateTime.of(2019,10,14,19,23);
@@ -126,6 +134,8 @@ public class UserServiceTest {
 				.createdAt(CRIATION_DATE)
 				.cars(new ArrayList<CarDTO>())
 				.build();
+		
+		userRole = new UserRole(safeUser, new Role(RoleEnum.ROLE_USER.getCode()));
 	}
 	
 	@Test
