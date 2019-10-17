@@ -35,6 +35,5 @@ public interface LoginResource {
 	
 	@ApiOperation(value = "Get specially user informations.")
 	@GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<UserDTO> get(final Principal principal);
 }

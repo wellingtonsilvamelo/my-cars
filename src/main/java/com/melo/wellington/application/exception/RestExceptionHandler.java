@@ -95,11 +95,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler impleme
 		
 	}
 	
-	@ExceptionHandler({OAuth2Exception.class})
+	@ExceptionHandler({AccessDeniedException.class})
     public ResponseEntity<Object> handleOAuth2Exception(final OAuth2Exception ex) {
 		logError(ex);
         
-        ResponseError responseError = new ResponseError(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+        ResponseError responseError = new ResponseError(HttpStatus.UNAUTHORIZED.value(), "Access Denied!");
         return new ResponseEntity<>(responseError, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 

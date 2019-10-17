@@ -1,6 +1,8 @@
 package com.melo.wellington.application.resource;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -43,7 +45,6 @@ public interface UserResource {
 	
 	@ApiOperation(value = "Delete a specially user by id")
 	@DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	ResponseEntity<?> deleteUser(@PathVariable("id") Long userId);
 	
 	@ApiOperation(value = "Update a specially user by id")

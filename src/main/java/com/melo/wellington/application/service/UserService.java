@@ -102,6 +102,8 @@ public class UserService implements UserDetailsService{
 		Optional<User> exists = userRepository.findById(id);
 		
 		if(exists.isPresent()) {
+			List<UserRole> userRoles = userRoleRepository.findByUserId(id);
+			userRoleRepository.deleteAll(userRoles);
 			userRepository.deleteById(id);
 		}else {
 			throw new ApiException("User not found!");

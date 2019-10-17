@@ -1,8 +1,10 @@
 package com.melo.wellington.application.controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import com.melo.wellington.application.dto.CarDTO;
 import com.melo.wellington.application.dto.UserDTO;
 import com.melo.wellington.application.entity.Car;
 import com.melo.wellington.application.entity.User;
+import com.melo.wellington.application.exception.ApiException;
 import com.melo.wellington.application.resource.UserResource;
 import com.melo.wellington.application.service.CarService;
 import com.melo.wellington.application.service.UserService;
@@ -102,7 +105,7 @@ public class UserController implements UserResource{
 
 	@Override
 	public ResponseEntity<?> deleteUser(Long userId) {
-		userService.removeUser(userId);
+		userService.removeUser(userId);		
 		return ResponseEntity.ok().build();
 	}
 
