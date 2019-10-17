@@ -15,10 +15,14 @@ import org.springframework.stereotype.Service;
 
 import com.melo.wellington.application.builder.entity.UserBuilder;
 import com.melo.wellington.application.entity.Car;
+import com.melo.wellington.application.entity.Role;
 import com.melo.wellington.application.entity.User;
+import com.melo.wellington.application.entity.UserRole;
 import com.melo.wellington.application.exception.ApiException;
+import com.melo.wellington.application.model.RoleEnum;
 import com.melo.wellington.application.repository.UserRepository;
 import com.melo.wellington.application.repository.UserRoleRepository;
+import com.melo.wellington.application.util.Util;
 
 @Service(value = "userService")
 @Transactional(rollbackOn=Exception.class)
@@ -48,8 +52,13 @@ public class UserService implements UserDetailsService{
 			
 			if(emailExists.isPresent()) {
 				throw new ApiException("Email already exists!");
-			}			
+			}
+			user.setPassword(Util.generateBCrypt(user.getPassword()));
 			user =  userRepository.save(user);
+			
+			UserRole userRole = new UserRole(user, new Role(RoleEnum.ROLE_USER.getCode()));
+			
+			userRoleRepository.save(userRole);
 			
 			for(Car car : user.getCars()) {
 				car.setUser(user);
@@ -145,6 +154,7 @@ public class UserService implements UserDetailsService{
 		if(!user.isPresent()){
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
+		userRepository.updateLastLogin(username);
 		return new org.springframework.security.core.userdetails.User(
 				user.get().getLogin(), user.get().getPassword(), 
 				getRoles(user.get().getId()));

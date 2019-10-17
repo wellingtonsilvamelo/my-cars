@@ -10,7 +10,7 @@ public class CarDTOBuilder {
 	private String licensePlate;
 	private String model;
 	private String color;
-	private Integer qtdUtilizacao;
+	private Integer amountUse;
 	
 	public static CarDTOBuilder create() {
 		return new CarDTOBuilder();
@@ -40,8 +40,8 @@ public class CarDTOBuilder {
 		this.color = color;
 		return this;
 	}
-	public CarDTOBuilder qtdUtilizacao(Integer qtdUtilizacao) {
-		this.qtdUtilizacao = qtdUtilizacao;
+	public CarDTOBuilder amountUse(Integer amountUse) {
+		this.amountUse = amountUse;
 		return this;
 	}
 	
@@ -53,7 +53,7 @@ public class CarDTOBuilder {
 		carDTO.setModel(model);
 		carDTO.setYear(year);
 		carDTO.setColor(color);
-		carDTO.setQtdUtilizacao(qtdUtilizacao);
+		carDTO.setAmountUse(amountUse);
 		return carDTO;
 	}
 

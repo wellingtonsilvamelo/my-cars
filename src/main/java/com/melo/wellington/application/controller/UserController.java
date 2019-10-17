@@ -51,9 +51,9 @@ public class UserController implements UserResource{
 						.build())
 				.collect(Collectors.toList());
 		
-		userDTOList.sort(Comparator
-				.comparingInt(u -> ((UserDTO) u).getCars().stream().mapToInt(CarDTO::getQtdUtilizacao).sum()).reversed()
-				.thenComparing(u -> ((UserDTO) u).getLogin()));
+		userDTOList.sort(Comparator.nullsLast(Comparator.comparingInt(u -> ((UserDTO) u).getCars().stream().mapToInt(CarDTO::getAmountUse).sum()).reversed()
+				.thenComparingInt(u -> ((UserDTO) u).getCars().size()).reversed()
+				.thenComparing(u -> ((UserDTO) u).getLogin())));
 				
 		return ResponseEntity.ok(userDTOList);
 	}
@@ -115,8 +115,6 @@ public class UserController implements UserResource{
 				.lastName(userDTO.getLastName())
 				.email(userDTO.getEmail())
 				.birthday(userDTO.getBirthday())
-				.login(userDTO.getLogin())
-				.password(userDTO.getPassword())
 				.phone(userDTO.getPhone())
 				.createdAt(userDTO.getCreatedAt())
 				.build();

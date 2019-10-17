@@ -56,7 +56,7 @@ public class CarService {
 		Optional<Car> result = carRepository.findById(id); 
 		if(result.isPresent()) {
 			Car car = result.get();
-			car.setQtdUtilizacao(car.getQtdUtilizacao()+1);
+			car.setAmountUse(car.getAmountUse()+1);
 			return car;
 		}
 		throw new ApiException("Car not found!");		

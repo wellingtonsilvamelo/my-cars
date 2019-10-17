@@ -20,6 +20,12 @@ public class Role {
 	@Column(name="role_description", length=50, nullable=false)
 	private String description;
 	
+	public Role(Long id) {
+		this.id = id;
+	}
+	
+	public Role() {}
+
 	public Long getId() {
 		return id;
 	}

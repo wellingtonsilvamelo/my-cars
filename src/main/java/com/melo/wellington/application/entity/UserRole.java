@@ -26,7 +26,15 @@ public class UserRole {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="role_id", nullable=false)
 	private Role role;
-	
+
+	public UserRole(User user, Role role) {
+		super();
+		this.user = user;
+		this.role = role;
+	}
+		
+	public UserRole() {}
+
 	public Long getId() {
 		return id;
 	}

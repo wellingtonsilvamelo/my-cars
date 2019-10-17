@@ -54,7 +54,7 @@ public class CarBuilder {
 		car.setModel(model);
 		car.setYear(year);
 		car.setColor(color);
-		car.setQtdUtilizacao(qtdUtilizacao);
+		car.setAmountUse(qtdUtilizacao);
 		return car;
 	}
 

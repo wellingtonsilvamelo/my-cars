@@ -1,4 +1,5 @@
-insert into tbg_role (role_description) values ('ROLE_USER');
+insert into tbg_role (role_id, role_description) values (1, 'ROLE_ADMIN');
+insert into tbg_role (role_id, role_description) values (2, 'ROLE_USER');
 
 insert into tbg_user 
     (user_birthday, user_date_creation, user_email, user_first_name, user_last_login, user_lastname, username, password, user_phone) 

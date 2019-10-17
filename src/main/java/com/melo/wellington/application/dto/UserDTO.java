@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.melo.wellington.application.validators.UserSaveCheck;
 import com.melo.wellington.application.validators.UserUpdateCheck;
 
@@ -31,10 +33,11 @@ public class UserDTO {
 	private String email;
 	
 	@NotNull(message="Missing fields!")
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDate birthday;
 	
 	@NotEmpty(message="Missing fields!")
-	@Size(min=4, max=20, message="Invalid fields!")
+	@Size(min=8, max=20, message="Invalid fields!")
 	private String login;
 	
 	@NotEmpty(message="Missing fields!", groups = {UserSaveCheck.class})

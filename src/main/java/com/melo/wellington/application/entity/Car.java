@@ -41,7 +41,7 @@ public class Car {
 	private String color;
 	
 	@Column(name="car_qtd_utilizacao", nullable=false, columnDefinition = "integer default 0")
-	private Integer qtdUtilizacao;
+	private Integer amountUse;
 	
 	public Long getId() {
 		return id;
@@ -79,11 +79,11 @@ public class Car {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public Integer getQtdUtilizacao() {
-		return qtdUtilizacao;
+	public Integer getAmountUse() {
+		return amountUse;
 	}
-	public void setQtdUtilizacao(Integer qtdUtilizacao) {
-		this.qtdUtilizacao = qtdUtilizacao;
+	public void setAmountUse(Integer qtdUtilizacao) {
+		this.amountUse = qtdUtilizacao;
 	}
 
 }

@@ -14,7 +14,7 @@ public class MockLoadData {
 	public static final String EMAIL = "wellingtonsilvamelo@gmail.com";
 	public static final String LOGIN = "wellingtonsilvamelo";
 	public static final LocalDate BIRTHDAY = LocalDate.of(1986,6,6);
-	public static final String PASSWORD = "12345678";
+	public static final String PASSWORD = "$2a$10$ts.U67GyV/HjAwlmA4e9IeHKY1FViXeTC4Zqb.3XdPfp8dOHpZuOK";
 	public static final String PHONE = "81999999999";
 	public static final LocalDate CRIATION_DATE = LocalDate.of(2019,10,14);
 	public static final LocalDateTime LAST_LOGIN= LocalDateTime.of(2019,10,14,19,23);

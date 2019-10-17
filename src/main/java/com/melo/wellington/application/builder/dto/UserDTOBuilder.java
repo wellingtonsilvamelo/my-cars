@@ -86,14 +86,14 @@ public class UserDTOBuilder {
 					.userId(c.getUser().getId())
 					.licensePlate(c.getLicensePlate())
 					.model(c.getModel())
-					.qtdUtilizacao(c.getQtdUtilizacao())
+					.amountUse(c.getAmountUse())
 					.color(c.getColor())
 					.year(c.getYear())
 					.build()
 			).collect(Collectors.toList());
 		
-		carsDTOList.sort(Comparator.comparingInt(CarDTO::getQtdUtilizacao).reversed()
-				.thenComparing(CarDTO::getModel));
+		carsDTOList.sort(Comparator.nullsLast(Comparator.comparingInt(CarDTO::getAmountUse).reversed()
+				.thenComparing(CarDTO::getModel)));
 		
 		this.cars = carsDTOList;
 		return this;

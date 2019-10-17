@@ -44,14 +44,14 @@ public class CarController implements CarResource{
 						.id(car.getId())
 						.licensePlate(car.getLicensePlate())
 						.model(car.getModel())
-						.qtdUtilizacao(car.getQtdUtilizacao())
+						.amountUse(car.getAmountUse())
 						.userId(car.getUser().getId())
 						.year(car.getYear())
 						.build())
 				.collect(Collectors.toList());
 		
-		carDTOList.sort(Comparator.comparingInt(CarDTO::getQtdUtilizacao).reversed()
-				.thenComparing(CarDTO::getModel));
+		carDTOList.sort(Comparator.nullsLast(Comparator.comparingInt(CarDTO::getAmountUse).reversed()
+				.thenComparing(CarDTO::getModel)));
 				
 		return ResponseEntity.ok(carDTOList);
 	}
@@ -86,7 +86,7 @@ public class CarController implements CarResource{
 				.licensePlate(car.getLicensePlate())
 				.model(car.getModel())
 				.userId(car.getUser().getId())
-				.qtdUtilizacao(car.getQtdUtilizacao())
+				.amountUse(car.getAmountUse())
 				.year(car.getYear())
 				.build();
 
@@ -119,7 +119,7 @@ public class CarController implements CarResource{
 				.id(car.getId())
 				.model(car.getModel())
 				.userId(car.getUser().getId())
-				.qtdUtilizacao(0)
+				.amountUse(0)
 				.year(car.getYear())
 				.build();
 		

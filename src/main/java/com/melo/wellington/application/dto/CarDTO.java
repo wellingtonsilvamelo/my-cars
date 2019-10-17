@@ -29,7 +29,7 @@ public class CarDTO {
 	@Size(min=4, max=30, message="Invalid fields!")
 	private String color;
 	
-	private Integer qtdUtilizacao;
+	private Integer amountUse;
 	
 	public Long getId() {
 		return id;
@@ -105,11 +105,11 @@ public class CarDTO {
 			return false;
 		return true;
 	}
-	public Integer getQtdUtilizacao() {
-		return qtdUtilizacao;
+	public Integer getAmountUse() {
+		return amountUse;
 	}
-	public void setQtdUtilizacao(Integer qtdUtilizacao) {
-		this.qtdUtilizacao = qtdUtilizacao;
+	public void setAmountUse(Integer qtdUtilizacao) {
+		this.amountUse = qtdUtilizacao;
 	}
 	
 }

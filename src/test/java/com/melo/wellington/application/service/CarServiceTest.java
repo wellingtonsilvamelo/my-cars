@@ -149,7 +149,7 @@ public class CarServiceTest {
 		errorCollector.checkThat(safeCar.getLicensePlate(), is(LICENSE_PLATE));
 		errorCollector.checkThat(safeCar.getModel(), is(MODEL));
 		errorCollector.checkThat(safeCar.getColor(), is(COLOR));
-		errorCollector.checkThat(safeCar.getQtdUtilizacao(), is(QTD_UTILIZACAO));
+		errorCollector.checkThat(safeCar.getAmountUse(), is(QTD_UTILIZACAO));
 		errorCollector.checkThat(safeCar.getYear(), is(YEAR));
 		errorCollector.checkThat(safeCar.getUser(), is(USER));
 	}
@@ -170,7 +170,7 @@ public class CarServiceTest {
 		carService.getCar(1L);
 		
 		errorCollector.checkThat(safeCar.getId(), is(1L));
-		errorCollector.checkThat(safeCar.getQtdUtilizacao(), is(1));
+		errorCollector.checkThat(safeCar.getAmountUse(), is(1));
 	}
 	
 	@Test
