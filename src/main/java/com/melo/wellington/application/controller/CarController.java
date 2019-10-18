@@ -21,6 +21,7 @@ import com.melo.wellington.application.entity.User;
 import com.melo.wellington.application.resource.CarResource;
 import com.melo.wellington.application.service.CarService;
 import com.melo.wellington.application.service.UserService;
+import com.melo.wellington.application.util.Util;
 
 @RestController
 public class CarController implements CarResource{
@@ -49,11 +50,8 @@ public class CarController implements CarResource{
 						.year(car.getYear())
 						.build())
 				.collect(Collectors.toList());
-		
-		carDTOList.sort(Comparator.nullsLast(Comparator.comparingInt(CarDTO::getAmountUse).reversed()
-				.thenComparing(CarDTO::getModel)));
 				
-		return ResponseEntity.ok(carDTOList);
+		return ResponseEntity.ok(Util.comparingCars(carDTOList));
 	}
 
 	@Override
@@ -113,15 +111,6 @@ public class CarController implements CarResource{
 				.qtdUtilizacao(0)
 				.year(carDTO.getYear())				
 				.build());
-		
-		carDTO = CarDTOBuilder.create()
-				.color(car.getColor())
-				.id(car.getId())
-				.model(car.getModel())
-				.userId(car.getUser().getId())
-				.amountUse(0)
-				.year(car.getYear())
-				.build();
 		
 		return ResponseEntity.ok(carDTO);
 	}

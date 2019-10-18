@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.melo.wellington.application.dto.CarDTO;
 import com.melo.wellington.application.dto.UserDTO;
 import com.melo.wellington.application.entity.Car;
+import com.melo.wellington.application.util.Util;
 
 public class UserDTOBuilder {
 	
@@ -92,10 +93,7 @@ public class UserDTOBuilder {
 					.build()
 			).collect(Collectors.toList());
 		
-		carsDTOList.sort(Comparator.nullsLast(Comparator.comparingInt(CarDTO::getAmountUse).reversed()
-				.thenComparing(CarDTO::getModel)));
-		
-		this.cars = carsDTOList;
+		this.cars = Util.comparingCars(carsDTOList);
 		return this;
 	}
 	

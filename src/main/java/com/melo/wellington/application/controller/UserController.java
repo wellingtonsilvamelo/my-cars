@@ -21,6 +21,7 @@ import com.melo.wellington.application.exception.ApiException;
 import com.melo.wellington.application.resource.UserResource;
 import com.melo.wellington.application.service.CarService;
 import com.melo.wellington.application.service.UserService;
+import com.melo.wellington.application.util.Util;
 
 @RestController
 public class UserController implements UserResource{
@@ -53,12 +54,8 @@ public class UserController implements UserResource{
 						.phone(u.getPhone())
 						.build())
 				.collect(Collectors.toList());
-		
-		userDTOList.sort(Comparator.nullsLast(Comparator.comparingInt(u -> ((UserDTO) u).getCars().stream().mapToInt(CarDTO::getAmountUse).sum()).reversed()
-				.thenComparingInt(u -> ((UserDTO) u).getCars().size()).reversed()
-				.thenComparing(u -> ((UserDTO) u).getLogin())));
 				
-		return ResponseEntity.ok(userDTOList);
+		return ResponseEntity.ok(Util.comparingUsers(userDTOList));
 	}
 
 	@Override
