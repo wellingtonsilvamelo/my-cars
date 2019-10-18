@@ -56,7 +56,6 @@ public class CarService {
 		Optional<Car> result = carRepository.findById(id); 
 		if(result.isPresent()) {
 			Car car = result.get();
-			car.setAmountUse(car.getAmountUse()+1);
 			return car;
 		}
 		throw new ApiException("Car not found!");		
@@ -84,7 +83,7 @@ public class CarService {
 			
 			Optional<Car> licensePlateExists = carRepository.findFirstByLicensePlate(car.getLicensePlate());
 			
-			if(licensePlateExists.isPresent()) {
+			if(licensePlateExists.isPresent() && licensePlateExists.get().getId() != car.getId()) {
 				throw new ApiException("License plate already exists!");
 			}
 			
@@ -94,6 +93,7 @@ public class CarService {
 					.licensePlate(exists.get().getLicensePlate())
 					.model(car.getModel())
 					.user(car.getUser())
+					.amountUs(exists.get().getAmountUse())
 					.year(car.getYear())
 					.build();
 			

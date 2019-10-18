@@ -78,4 +78,9 @@ public class LoginController implements LoginResource{
         return ResponseEntity.ok(userDTO);
     }
 
+	@Override
+	public ResponseEntity<Boolean> validateToken(String authorization) {
+		return ResponseEntity.ok(true);
+	}
+
 }

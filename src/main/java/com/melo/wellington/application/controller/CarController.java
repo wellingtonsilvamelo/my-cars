@@ -3,6 +3,7 @@ package com.melo.wellington.application.controller;
 import java.security.Principal;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.melo.wellington.application.dto.CarDTO;
 import com.melo.wellington.application.dto.UserDTO;
 import com.melo.wellington.application.entity.Car;
 import com.melo.wellington.application.entity.User;
+import com.melo.wellington.application.exception.ApiException;
 import com.melo.wellington.application.resource.CarResource;
 import com.melo.wellington.application.service.CarService;
 import com.melo.wellington.application.service.UserService;
@@ -35,9 +37,13 @@ public class CarController implements CarResource{
 	@Override
 	public ResponseEntity<List<CarDTO>> getAll(@RequestHeader("Authorization") String authorization, Principal principal) {
 		
-		User user = userService.getUserByLogin(principal.getName()).get();		
+		Optional<User> user = userService.getUserByLogin(principal.getName());
+		
+		if(!user.isPresent()) {
+			throw new ApiException("User not found!");
+		}
 
-		List<Car> cars = carService.getAllCarsByUser(user);
+		List<Car> cars = carService.getAllCarsByUser(user.get());
 		
 		List<CarDTO> carDTOList = cars.stream()
 				.map(car -> CarDTOBuilder.create()
@@ -63,7 +69,7 @@ public class CarController implements CarResource{
 				.licensePlate(carDTO.getLicensePlate())
 				.model(carDTO.getModel())
 				.user(UserBuilder.create().id(carDTO.getUserId()).build())
-				.qtdUtilizacao(0)
+				.amountUs(0)
 				.year(carDTO.getYear())				
 				.build();
 		
@@ -77,6 +83,8 @@ public class CarController implements CarResource{
 	public ResponseEntity<CarDTO> getCar(Long carId) {
 
 		Car car = carService.getCar(carId);
+		car.setAmountUse(car.getAmountUse()+1);
+		car = carService.updateCar(car);
 		
 		CarDTO carDTO = CarDTOBuilder.create()
 				.color(car.getColor())
@@ -102,13 +110,13 @@ public class CarController implements CarResource{
 		
 		Car car = carService.getCar(carId);
 		
-		car = carService.saveCar(CarBuilder.create()
+		car = carService.updateCar(CarBuilder.create()
 				.color(carDTO.getColor())
 				.id(car.getId())
 				.licensePlate(car.getLicensePlate())
 				.model(carDTO.getModel())
 				.user(UserBuilder.create().id(car.getUser().getId()).build())
-				.qtdUtilizacao(0)
+				.amountUs(0)
 				.year(carDTO.getYear())				
 				.build());
 		

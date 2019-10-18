@@ -11,7 +11,7 @@ public class CarBuilder {
 	private String licensePlate;
 	private String model;
 	private String color;
-	private Integer qtdUtilizacao;
+	private Integer amountUs;
 	
 	public static CarBuilder create() {
 		return new CarBuilder();
@@ -41,8 +41,8 @@ public class CarBuilder {
 		this.color = color;
 		return this;
 	}
-	public CarBuilder qtdUtilizacao(Integer qtdUtilizacao) {
-		this.qtdUtilizacao = qtdUtilizacao;
+	public CarBuilder amountUs(Integer amountUs) {
+		this.amountUs = amountUs;
 		return this;
 	}
 	
@@ -54,7 +54,7 @@ public class CarBuilder {
 		car.setModel(model);
 		car.setYear(year);
 		car.setColor(color);
-		car.setAmountUse(qtdUtilizacao);
+		car.setAmountUse(amountUs);
 		return car;
 	}
 

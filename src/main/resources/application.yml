@@ -34,7 +34,7 @@ spring:
 security:
   oauth2:
     client:
-      access-token-validity-seconds: 1800
+      access-token-validity-seconds: 18000
       authorized-grant-types: password,refresh_token
       client-id: tomwellApp
       client-secret: $2a$10$I5l00CRpar0EE1TnM2NSI.ORUDOmYEngcG5nXDr/wN2Q/tjYeEwNu

@@ -89,7 +89,7 @@ public class CarServiceTest {
 				.licensePlate(LICENSE_PLATE)
 				.model(MODEL)
 				.user(UserBuilder.create().id(1L).build())
-				.qtdUtilizacao(0)
+				.amountUs(0)
 				.year(2019)
 				.build();
 		
@@ -99,7 +99,7 @@ public class CarServiceTest {
 				.licensePlate(LICENSE_PLATE)
 				.model(MODEL)
 				.user(UserBuilder.create().id(1L).build())
-				.qtdUtilizacao(0)
+				.amountUs(0)
 				.year(2019)
 				.build();
 		
@@ -170,7 +170,6 @@ public class CarServiceTest {
 		carService.getCar(1L);
 		
 		errorCollector.checkThat(safeCar.getId(), is(1L));
-		errorCollector.checkThat(safeCar.getAmountUse(), is(1));
 	}
 	
 	@Test
@@ -227,9 +226,19 @@ public class CarServiceTest {
 	
 	@Test
 	public void shouldReturnExceptionWhenTryUpdateACarAndPlateAlreadyExist() {
+		Car car = CarBuilder.create()
+				.id(2L)
+				.color(COLOR)
+				.licensePlate(LICENSE_PLATE)
+				.model(MODEL)
+				.user(UserBuilder.create().id(1L).build())
+				.amountUs(0)
+				.year(2019)
+				.build();
+		
 		when(carRepository.findById(1L)).thenReturn(Optional.ofNullable(safeCar));
 		when(carRepository.findFirstByLicensePlate(safeCar.getLicensePlate()))
-		.thenReturn(Optional.ofNullable(safeCar));		
+		.thenReturn(Optional.ofNullable(car));		
 		expectedException.expect(ApiException.class);
 		expectedException.expectMessage("License plate already exists!");		
 		carService.updateCar(safeCar);

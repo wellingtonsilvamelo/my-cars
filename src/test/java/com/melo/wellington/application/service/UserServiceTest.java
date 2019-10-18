@@ -107,7 +107,7 @@ public class UserServiceTest {
 				.licensePlate(LICENSE_PLATE)
 				.model(MODEL)
 				.user(UserBuilder.create().id(1L).build())
-				.qtdUtilizacao(0)
+				.amountUs(0)
 				.year(2019)
 				.build();
 		
@@ -117,7 +117,7 @@ public class UserServiceTest {
 				.licensePlate(LICENSE_PLATE)
 				.model(MODEL)
 				.user(UserBuilder.create().id(1L).build())
-				.qtdUtilizacao(0)
+				.amountUs(0)
 				.year(2019)
 				.build();
 		
