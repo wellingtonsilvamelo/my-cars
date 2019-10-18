@@ -31,6 +31,18 @@ spring:
   jackson:
     default-property-inclusion: NON_NULL
 
+eureka:
+  instance:
+    port: ${PORT:8091}
+    hostname: https://tw-eureka-server.herokuapp.com/
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka/
+  server:
+    wait-time-in-ms-when-sync-empty: 3000
+
 security:
   oauth2:
     client:
