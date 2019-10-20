@@ -43,7 +43,7 @@ public class Util {
 	public static List<UserDTO> comparingUsers(List<UserDTO> list){
 		
 		list.sort(Comparator.nullsLast(Comparator.comparingInt(u -> ((UserDTO) u).getCars().stream().mapToInt(CarDTO::getAmountUse).sum()).reversed()
-				.thenComparingInt(u -> ((UserDTO) u).getCars().size()).reversed()
+				.thenComparingInt(u -> ((UserDTO) u).getCars().size())
 				.thenComparing(u -> ((UserDTO) u).getLogin())));
 		
 		return list;
