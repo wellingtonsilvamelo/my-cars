@@ -34,7 +34,7 @@ spring:
 eureka:
   instance:
     port: ${PORT:8091}
-    hostname: https://tw-eureka-server.herokuapp.com
+    hostname: localhost
   client:
     registerWithEureka: true
     fetchRegistry: false
