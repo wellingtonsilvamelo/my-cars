@@ -17,21 +17,21 @@ Existe também uma documentação do swagger que pode ser encontrada nesse link 
 
 ### Executando a aplicação front-end
 #### localhost
-Basta clonar o repositório do git, descompactar em qualquer pasta de sua preferência, entrar no diretório raiz da aplicação e executar os seguinte comando:
+Basta [clona](https://github.com/wellingtonsilvamelo/front-my-cars.git "clona")r o repositório do git, descompactar em qualquer pasta de sua preferência, entrar no diretório raiz da aplicação e executar os seguinte comando:
 ```bash
     npm install
     ng serve
 ```
 
 #### cloud
-Basta acessar esse link: 
+Basta acessar esse link: https://tw-my-cars-front.herokuapp.com/
 
 ### Executando aplicação back-end
 #### localhost
 
-Clone o o projeto no repositório do git, descopacte em uma pasta de sua preferência, entre no diretório raiz do projeto e execute os seguintes comados:
+[Clone](https://github.com/wellingtonsilvamelo/my-cars.git "Clone") o o projeto no repositório do git, descopacte em uma pasta de sua preferência, entre no diretório raiz do projeto e execute os seguintes comados:
 ```bash
 mvn package
 cd target
-javac -jar my-cars-1.0.0.jar
+java -jar my-cars-1.0.0.jar
 ```
